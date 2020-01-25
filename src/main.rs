@@ -13,7 +13,7 @@ fn main() {
     let matches = App::new("Subtitle Converter")
                           .version("1.0.0")
                           .author("Mohamed Magdi . <migzzawi@gmail.com>")
-                          .about("Does awesome things")
+                          .about("Convert Subtitle Files Like (srt, vtt)")
                           .arg(Arg::with_name("config")
                                .short("c")
                                .long("config")
@@ -93,13 +93,13 @@ fn write_output(out: &str, content: &String) {
 
     // Open a file in write-only mode, returns `io::Result<File>`
     let mut file = match fs::File::create(&path) {
-        Err(why) => panic!("couldn't create {}: {}", display, why.description()),
+        Err(err) => panic!("couldn't create {}: {}", display, err.description()),
         Ok(file) => file,
     };
 
-    // Write the `LOREM_IPSUM` string to `file`, returns `io::Result<()>`
+    // Write the `content` string to `file`, returns `io::Result<()>`
     match file.write_all(content.as_bytes()) {
-        Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
+        Err(err) => panic!("couldn't write to {}: {}", display, err.description()),
         Ok(_) => println!("{} is ready!", display),
     }
 }
